@@ -15,7 +15,7 @@ RUN npm install
 COPY . .
 
 # Building the assets
-RUN yarn build
+RUN npm run build
 
 # STAGE 2: Using nginx to serve the built assets
 # Using nginx as a starting point

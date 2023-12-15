@@ -9,7 +9,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-app.get("/", (_, res) => res.send("hello!!!"));
+app.get("/", (_, res) => res.send("hello world from api!"));
 app.post("/", (req, res) => {
   try {
     eventEmitter.emit("start", req.body);

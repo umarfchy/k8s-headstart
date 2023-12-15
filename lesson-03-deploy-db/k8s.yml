@@ -19,7 +19,7 @@ spec:
             - containerPort: 3306
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: "password"
+              value: "p"
             - name: MYSQL_DATABASE
               value: "mydb"
           volumeMounts:
@@ -38,6 +38,7 @@ metadata:
 spec:
   accessModes:
     - ReadWriteOnce
+  # storageClassName: standard # Added storage class name
   resources:
     requests:
       storage: 100Mi
@@ -54,13 +55,6 @@ spec:
     - ReadWriteOnce
   persistentVolumeReclaimPolicy: Retain
   storageClassName: standard
-  local:
-    path: /home/docker/db-data
-  nodeAffinity:
-    required:
-      nodeSelectorTerms:
-        - matchExpressions:
-            - key: kubernetes.io/hostname
-              operator: In
-              values:
-                - "minikube"
+  hostPath:
+    path: /home/docker/pvdata
+    type: DirectoryOrCreate

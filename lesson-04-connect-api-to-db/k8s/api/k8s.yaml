@@ -1,3 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-api-config
+data:
+  MYSQL_HOST: "mysql-svc.default.svc.cluster.local"
+  MYSQL_USERNAME: "root"
+  MYSQL_PASSWORD: "pass"
+  MYSQL_DATABASE: "mydb"
+  MYSQL_TABLE: "mytable"
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -18,6 +30,32 @@ spec:
           imagePullPolicy: Never
           ports:
             - containerPort: 3000
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-api-config
+                  key: MYSQL_HOST
+            - name: MYSQL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-api-config
+                  key: MYSQL_USERNAME
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-api-config
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-api-config
+                  key: MYSQL_DATABASE
+            - name: MYSQL_TABLE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-api-config
+                  key: MYSQL_TABLE
 
 ---
 apiVersion: v1

@@ -1,10 +1,10 @@
 "use strict";
 
 // configs
-export const PORT = process.env.PORT || 4000;
+export const PORT = process.env.PORT || 3000;
 
 // db configs
-const sqlHost = process.env.MYSQL_HOST || "mysql.default.svc.cluster.local";
+const sqlHost = process.env.MYSQL_HOST || "mysql-svc.default.svc.cluster.local";
 const sqlUser = process.env.MYSQL_USERNAME || "root";
 const sqlPassword = process.env.MYSQL_PASSWORD || "pass";
 const sqlDatabase = process.env.MYSQL_DATABASE || "mydb";

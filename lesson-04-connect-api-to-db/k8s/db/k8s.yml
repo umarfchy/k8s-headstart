@@ -14,12 +14,13 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql:5.7
+          image: mysql-custom
+          imagePullPolicy: Never
           ports:
             - containerPort: 3306
           env:
             - name: MYSQL_ROOT_PASSWORD
-              value: "p"
+              value: "pass"
             - name: MYSQL_DATABASE
               value: "mydb"
           volumeMounts:
@@ -39,8 +40,8 @@ spec:
     app: mysql
   ports:
     - protocol: TCP
-      port: 8080
-      targetPort: 3000
+      port: 3306
+      targetPort: 3306
 
 ---
 apiVersion: v1

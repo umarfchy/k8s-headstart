@@ -28,7 +28,7 @@ build-db:
 	@cd ./db && docker build -t $(DB_IMAGE_NAME) .
 
 # Build all images in parallel
-build-all: build-api build-db
+build-all: build-client build-api build-db
 
 # Deploy CLIENT Kubernetes manifests
 deploy-client:

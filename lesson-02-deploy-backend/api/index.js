@@ -12,13 +12,13 @@ app.use(express.urlencoded({ extended: true }));
 app.get("/", (_, res) => res.send("hello world from api!"));
 app.post("/", (req, res) => {
   try {
-    eventEmitter.emit("start", req.body);
+    console.log("received request body -", req.body);
     res.status(200).json({
       host: HOSTNAME,
       message: "success",
     });
   } catch (error) {
-    console.log(error);
+    console.log("error message -", error?.message);
     res.status(500).json({
       host: HOSTNAME,
       message: "failed",

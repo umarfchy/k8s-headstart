@@ -1,0 +1,92 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mysql-api-config
+data:
+  MYSQL_HOST: "mysql-svc.default.svc.cluster.local"
+  MYSQL_USERNAME: "root"
+  MYSQL_PASSWORD: "pass"
+  MYSQL_DATABASE: "mydb"
+  MYSQL_TABLE: "mytable"
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-deploy
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: api
+  template:
+    metadata:
+      labels:
+        app: api
+    spec:
+      containers:
+        - name: api
+          image: api
+          imagePullPolicy: Never
+          ports:
+            - containerPort: 3000
+          env:
+            - name: MYSQL_HOST
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-api-config
+                  key: MYSQL_HOST
+            - name: MYSQL_USERNAME
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-api-config
+                  key: MYSQL_USERNAME
+            - name: MYSQL_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-api-config
+                  key: MYSQL_PASSWORD
+            - name: MYSQL_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-api-config
+                  key: MYSQL_DATABASE
+            - name: MYSQL_TABLE
+              valueFrom:
+                configMapKeyRef:
+                  name: mysql-api-config
+                  key: MYSQL_TABLE
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: api-svc
+spec:
+  selector:
+    app: api
+  ports:
+    - protocol: TCP
+      port: 8080
+      targetPort: 3000
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: myapp-server-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: api.example.com
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-svc
+                port:
+                  number: 8080

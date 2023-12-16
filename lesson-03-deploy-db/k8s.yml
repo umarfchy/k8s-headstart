@@ -42,19 +42,3 @@ spec:
   resources:
     requests:
       storage: 100Mi
-
----
-apiVersion: v1
-kind: PersistentVolume
-metadata:
-  name: mysql-pv
-spec:
-  capacity:
-    storage: 100Mi
-  accessModes:
-    - ReadWriteOnce
-  persistentVolumeReclaimPolicy: Retain
-  storageClassName: standard
-  hostPath:
-    path: /home/docker/pvdata
-    type: DirectoryOrCreate

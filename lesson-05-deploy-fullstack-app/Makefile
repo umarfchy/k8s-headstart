@@ -1,7 +1,7 @@
 # Makefile
 
 # constants
-API_URL=api.example.com
+API_URL=http://api.example.com
 
 # Define Docker image names
 CLIENT_IMAGE_NAME=client

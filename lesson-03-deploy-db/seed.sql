@@ -1,14 +1,20 @@
-show databases;
+DROP DATABASE IF EXISTS mydb;
 
--- create database mydb;
+CREATE DATABASE mydb;
 
-use mydb;
+USE mydb;
 
-create table mytable (id int, name text);
+DROP TABLE IF EXISTS mytable;
 
-insert into mytable (id, name) values (1, "a");
-insert into mytable (id, name) values (2, "b");
-insert into mytable (id, name) values (3, "c");
-insert into mytable (id, name) values (4, "d");
+CREATE TABLE mytable ( 
+  id INT NOT NULL AUTO_INCREMENT, 
+  text LONGTEXT NOT NULL, 
+  PRIMARY KEY (id) 
+);
 
-select * from mytable;
+
+INSERT INTO mytable (text) VALUES("lorem ipsum dolor sit amet");
+INSERT INTO mytable (text) VALUES("consectetur adipisicing elit");
+INSERT INTO mytable (text) VALUES("laudantium esse eum ex qui");
+INSERT INTO mytable (text) VALUES("fugiat facilis similique illum");
+INSERT INTO mytable (text) VALUES("aliquid, tempora et excepturi");

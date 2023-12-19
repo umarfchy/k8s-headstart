@@ -9,38 +9,38 @@ API_IMAGE_NAME=api
 DB_IMAGE_NAME=db
 
 # Define build and deploy targets
-.PHONY: build-api build-db build-all deploy-api deploy-db
+.PHONY: build_client build_api build_db build_all deploy_client deploy_api deploy_db deploy_all
 
 # Default goal
-build: build-all
-deploy: deploy-all
+build: build_all
+deploy: deploy_all
 
 # Build the CLIENT Docker image
-build-client:
+build_client:
 	@cd ./client && docker build --build-arg VITE_API_URL=${API_URL} -t $(CLIENT_IMAGE_NAME) .
 
 # Build the API Docker image
-build-api:
+build_api:
 	@cd ./api && docker build -t $(API_IMAGE_NAME) .
 
 # Build the DB Docker image
-build-db:
+build_db:
 	@cd ./db && docker build -t $(DB_IMAGE_NAME) .
 
 # Build all images in parallel
-build-all: build-client build-api build-db
+build_all: build_client build_api build_db
 
 # Deploy CLIENT Kubernetes manifests
-deploy-client:
+deploy_client:
 	@cd ./k8s/client && kubectl apply -f k8s.yaml
 
 # Deploy API Kubernetes manifests
-deploy-api:
+deploy_api:
 	@cd ./k8s/api && kubectl apply -f k8s.yaml
 
 # Deploy DB Kubernetes manifests
-deploy-db:
+deploy_db:
 	@cd ./k8s/db && kubectl apply -f pv.yaml
 	@cd ./k8s/db && kubectl apply -f k8s.yaml
 
-deploy-all: deploy-client deploy-api deploy-db
+deploy_all: deploy_client deploy_api deploy_db

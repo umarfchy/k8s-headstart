@@ -24,8 +24,7 @@ spec:
     spec:
       containers:
         - name: mysql
-          image: mysql-custom
-          imagePullPolicy: Never
+          image: umarfchy/db:v-full
           ports:
             - containerPort: 3306
           env:

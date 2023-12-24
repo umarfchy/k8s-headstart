@@ -14,8 +14,7 @@ spec:
     spec:
       containers:
         - name: client
-          image: client
-          imagePullPolicy: Never
+          image: umarfchy/client:v-full
           ports:
             - containerPort: 80
 

@@ -26,8 +26,7 @@ spec:
     spec:
       containers:
         - name: api
-          image: api
-          imagePullPolicy: Never
+          image: umarfchy/api:v2
           ports:
             - containerPort: 3000
           env:
